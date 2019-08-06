@@ -7,9 +7,23 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Press Button to say Hello</h1>
+    
+    <div id="theinput">
+        <h1>Press Button to say Hello</h1>
+        
+        <button onclick="addPara(document.getElementById('formula').value)">Say Hello</button>
+        <input type="text" id="formula">
+    </div>
+
+
+    <div id="theoutput">
+    </div>
+    
+    
+    
     <script src="hello.js"></script>
-    <button onclick="sayHello(document.getElementById('formula').value)">Say Hello</button>
-    <input type="text" id="formula">
+
+
+
 </body>
 </html>
