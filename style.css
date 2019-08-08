@@ -1,0 +1,47 @@
+.equation{
+    display: inline-block;
+    border: 5px lightslategray double;
+}
+
+.formula{
+    margin: 10px;
+    border: 1px dotted;
+    display: inline-block;
+}
+
+.plus{
+    display: inline-block;
+}
+
+.arrow{
+    display: inline-block;
+}
+
+
+.elementWithNumber{
+    padding: 2px;
+    margin: 0px;
+    border: 1px Solid;
+    border-radius: 10px; 
+    width: 50px;
+    background-color: white;
+    margin: 5px;
+}
+
+.plus{
+    font-size: 30px;
+}
+
+.elementSymbol{
+
+    padding: 2px;
+    background-color: lightblue;
+    border-radius: 10px;
+}
+
+.elementNumber{
+    padding: 2px;
+    border-radius: 30px;
+    float: right;
+}
+
