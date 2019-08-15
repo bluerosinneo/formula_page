@@ -2,10 +2,9 @@ class chemicalFormula{
     constructor(){
         this.elementMap = new Map();
         this.formulaCoef = 1;
-        this.origFormula = "H2O";
+        this.origFormula = "";
 
-        this.elementMap.set('H',2);
-        this.elementMap.set('O',1);
+
     }
 
     showElementMap(){
