@@ -3,8 +3,13 @@ function addPara(thInput) {
     {
         var myFormula = new chemicalFormula();
 
-        var element = document.getElementById("theoutput");
-        element.appendChild(myFormula.makeFormula());
+        var loc = 0;
+        while (loc < thInput.length){
+            loc = myFormula.lookNextElement(thInput, loc);
+        }
+        
+/*         var element = document.getElementById("theoutput");
+        element.appendChild(myFormula.makeFormula()); */
 
     }
 }

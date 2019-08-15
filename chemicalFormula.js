@@ -51,4 +51,33 @@ class chemicalFormula{
         }
     }
     
+    lookNextElement(formulaText, loc){
+        if (isUpper(formulaText[loc])){
+            if((loc+1)<formulaText.length && isLower(formulaText[loc+1])){
+                console.log(formulaText[loc]+formulaText[loc+1]);
+                return loc + 2;
+            }
+            else{
+                console.log(formulaText[loc]);
+                return loc +1; 
+            }
+        }
+        return loc + 1;
+    }
+}
+
+function isAlpha(myChar) {
+    return null != myChar.match(/[a-z]/i) ;
+}
+
+function isNum(myChar){
+    return null != myChar.match(/[0-9]/i)
+}
+
+function isUpper(myChar){
+    return isAlpha(myChar) && (myChar == myChar.toUpperCase());
+}
+
+function isLower(myChar){
+    return isAlpha(myChar) && (myChar == myChar.toLowerCase());
 }
