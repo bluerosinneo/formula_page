@@ -3,13 +3,14 @@ function addPara(thInput) {
     {
         var myFormula = new chemicalFormula();
 
-        var loc = 0;
-        while (loc < thInput.length){
-            loc = myFormula.lookNextElement(thInput, loc);
-        }
+
+        myFormula.readTextToFormula(thInput);
+
+
+
         
-/*         var element = document.getElementById("theoutput");
-        element.appendChild(myFormula.makeFormula()); */
+        var element = document.getElementById("theoutput");
+        element.appendChild(myFormula.makeFormulaHTML());
 
     }
 }

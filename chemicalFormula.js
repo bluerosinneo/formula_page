@@ -12,7 +12,7 @@ class chemicalFormula{
         console.log(this.elementMap);
     }
 
-    makeFormula(){
+    makeFormulaHTML(){
 
         var myFormula = document.createElement("span");
         myFormula.setAttribute('class', 'formula');
@@ -52,26 +52,60 @@ class chemicalFormula{
     }
     
     lookNextElement(formulaText, loc){
-        if (isUpper(formulaText[loc])){
-            if((loc+1)<formulaText.length && isLower(formulaText[loc+1])){
-                console.log(formulaText[loc]+formulaText[loc+1]);
-                return loc + 2;
+        if (isUpper(formulaText[loc[0]])){
+            var elementSym = "";
+            var elementNum = 0;
+            if((loc[0]+1)<formulaText.length && isLower(formulaText[loc[0]+1])){
+                elementSym =formulaText[loc[0]]+formulaText[loc[0]+1];
+                loc[0] = loc[0] + 2;
+                elementNum = this.lookNextNumber(formulaText, loc);
+                this.addElement(elementSym, elementNum);
+                return;
             }
             else{
-                console.log(formulaText[loc]);
-                return loc +1; 
+                elementSym = formulaText[loc[0]];
+                loc[0] = loc[0] + 1;
+                elementNum = this.lookNextNumber(formulaText, loc);
+                this.addElement(elementSym, elementNum);
+                return ; 
             }
         }
-        return loc + 1;
+        loc[0] = loc[0] + 1;
+        return;
+    }
+
+    lookNextNumber(formulaText, loc){
+        var numberString = "";
+        if(loc[0] < formulaText.length && isNum(formulaText[loc[0]])){
+            while(isNum(formulaText[loc[0]])){
+                numberString = numberString + formulaText[loc[0]];
+                loc[0] = loc[0] + 1;
+            }
+            return parseInt(numberString);
+        }
+        return 1;
+    }
+
+    readTextToFormula(formulaText){
+        // Isolation peren and brackets
+
+
+        // scan for elementSym and elementNum
+        var loc = [0];
+        while (loc[0] < formulaText.length){
+            this.lookNextElement(formulaText, loc);
+        }
+
     }
 }
 
+
 function isAlpha(myChar) {
-    return null != myChar.match(/[a-z]/i) ;
+    return null != myChar.match(/[a-z]/i);
 }
 
 function isNum(myChar){
-    return null != myChar.match(/[0-9]/i)
+    return null != myChar.match(/[0-9]/i);
 }
 
 function isUpper(myChar){
