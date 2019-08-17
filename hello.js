@@ -3,14 +3,16 @@ function addPara(thInput) {
     {
         var myFormula = new chemicalFormula();
 
-
-        myFormula.readTextToFormula(thInput);
-
-
+        console.log(myFormula.findBrackOrPeren(thInput));
 
         
-        var element = document.getElementById("theoutput");
-        element.appendChild(myFormula.makeFormulaHTML());
+
+
+
+
+        // myFormula.readTextToFormula(thInput);
+/*         var element = document.getElementById("theoutput");
+        element.appendChild(myFormula.makeFormulaHTML()); */
 
     }
 }

@@ -96,6 +96,20 @@ class chemicalFormula{
         }
 
     }
+
+    findBrackOrPeren(formulaText){
+        let result = false;
+        if(formulaText.includes("(") && formulaText.includes(")")){
+            result = true;
+            console.log("has Peren");
+        }
+        if(formulaText.includes("[") && formulaText.includes("]")){
+            result = true;
+            console.log("has Brac");
+        }
+        return result;
+
+    }
 }
 
 
