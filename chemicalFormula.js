@@ -50,24 +50,24 @@ class chemicalFormula{
         }
     }
     
-    lookNextElement(formulaText, loc){
+    lookNextElement(formulaText, loc, formulaSubscript){
         if (isUpper(formulaText[loc[0]])){
             var elementSym = "";
             var elementNum = 0;
             if((loc[0]+1)<formulaText.length && isLower(formulaText[loc[0]+1])){
                 elementSym =formulaText[loc[0]]+formulaText[loc[0]+1];
                 loc[0] = loc[0] + 2;
-                elementNum = this.lookNextNumber(formulaText, loc);
-                this.addElement(elementSym, elementNum);
-                return;
             }
             else{
                 elementSym = formulaText[loc[0]];
                 loc[0] = loc[0] + 1;
-                elementNum = this.lookNextNumber(formulaText, loc);
-                this.addElement(elementSym, elementNum);
-                return ; 
             }
+            elementNum = this.lookNextNumber(formulaText, loc);
+            console.log(elementSym);
+            console.log(elementNum);
+            console.log(formulaSubscript);
+            this.addElement(elementSym, elementNum*formulaSubscript);
+            return;
         }
         loc[0] = loc[0] + 1;
         return;
@@ -75,8 +75,10 @@ class chemicalFormula{
 
     lookNextNumber(formulaText, loc){
         var numberString = "";
+        // if catches if there is a writen subscript or not
+        // while actually captures the subscript no matter the length
         if(loc[0] < formulaText.length && isNum(formulaText[loc[0]])){
-            while(isNum(formulaText[loc[0]])){
+            while(loc[0] < formulaText.length && isNum(formulaText[loc[0]])){
                 numberString = numberString + formulaText[loc[0]];
                 loc[0] = loc[0] + 1;
             }
@@ -85,14 +87,16 @@ class chemicalFormula{
         return 1;
     }
 
-    readTextToFormula(formulaText){
-        // Isolation peren and brackets
-
-
-        // scan for elementSym and elementNum
+    readTextToFormula(formulaText, coef){
+        if(this.origFormula.lencht == 0){
+            this.origFormula = formulaText;
+        }
+        if(this.findBrackOrPeren(formulaText)){
+            formulaText = this.breakInnerOuter(formulaText,coef);
+        }
         var loc = [0];
         while (loc[0] < formulaText.length){
-            this.lookNextElement(formulaText, loc);
+            this.lookNextElement(formulaText, loc, coef);
         }
 
     }
@@ -101,14 +105,26 @@ class chemicalFormula{
         let result = false;
         if(formulaText.includes("(") && formulaText.includes(")")){
             result = true;
-            console.log("has Peren");
         }
         if(formulaText.includes("[") && formulaText.includes("]")){
             result = true;
-            console.log("has Brac");
         }
         return result;
+    }
 
+    breakInnerOuter(formulaText, formulaSubscript){
+        formulaText = formulaText.replace("[","(");
+        formulaText = formulaText.replace("]",")");
+        let start = formulaText.indexOf("(");
+        let end = formulaText.lastIndexOf(")");
+        let beforeText = formulaText.substring(0,start);
+        let loc = [];
+        loc[0] = end + 1;
+        let elementNum = this.lookNextNumber(formulaText, loc); 
+        let innerText = formulaText.substring(start+1,end);
+        let afterText = formulaText.substring(loc[0]+1);
+        this.readTextToFormula(innerText,formulaSubscript*elementNum);
+        return beforeText + afterText;
     }
 }
 
