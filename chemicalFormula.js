@@ -3,8 +3,6 @@ class chemicalFormula{
         this.elementMap = new Map();
         this.formulaCoef = 1;
         this.origFormula = "";
-
-
     }
 
     showElementMap(){
@@ -63,9 +61,6 @@ class chemicalFormula{
                 loc[0] = loc[0] + 1;
             }
             elementNum = this.lookNextNumber(formulaText, loc);
-            console.log(elementSym);
-            console.log(elementNum);
-            console.log(formulaSubscript);
             this.addElement(elementSym, elementNum*formulaSubscript);
             return;
         }
@@ -88,8 +83,11 @@ class chemicalFormula{
     }
 
     readTextToFormula(formulaText, coef){
-        if(this.origFormula.lencht == 0){
+        if(this.origFormula.length == 0){
             this.origFormula = formulaText;
+        }
+        if(this.findDot(formulaText)){
+            formulaText = this.breakDot(formulaText, coef);
         }
         if(this.findBrackOrPeren(formulaText)){
             formulaText = this.breakInnerOuter(formulaText,coef);
@@ -99,6 +97,25 @@ class chemicalFormula{
             this.lookNextElement(formulaText, loc, coef);
         }
 
+    }
+
+    findDot(formulaText){
+        let result = false;
+        if(formulaText.includes(".")){
+            result = true;
+        }
+        return result;
+    }
+
+    breakDot(formulaText, formulaSubscript){
+        let dotLocation = formulaText.indexOf(".");
+        let loc = [];
+        loc[0] = dotLocation+1;
+        let dotCoef = this.lookNextNumber(formulaText, loc);
+        if(loc[0] < formulaText.length){
+            this.readTextToFormula(formulaText.substring(loc[0]), formulaSubscript*dotCoef)
+        }
+        return formulaText.substring(0, dotLocation);
     }
 
     findBrackOrPeren(formulaText){
@@ -122,7 +139,7 @@ class chemicalFormula{
         loc[0] = end + 1;
         let elementNum = this.lookNextNumber(formulaText, loc); 
         let innerText = formulaText.substring(start+1,end);
-        let afterText = formulaText.substring(loc[0]+1);
+        let afterText = formulaText.substring(loc[0]);
         this.readTextToFormula(innerText,formulaSubscript*elementNum);
         return beforeText + afterText;
     }

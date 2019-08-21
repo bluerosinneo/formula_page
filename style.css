@@ -1,5 +1,9 @@
+div{
+    margin: 2.5px 0 2.5px 0;
+}
+
 .equation{
-    display: inline-block;
+    /* display: inline-block; */
     border: 5px lightslategray double;
 }
 

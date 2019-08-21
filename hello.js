@@ -1,20 +1,20 @@
 function addPara(thInput) {
     if (thInput.length > 0)
     {
-        var myFormula = new chemicalFormula();
 
-        // if(myFormula.findBrackOrPeren(thInput)){
-        //     myFormula.breakInnerOuter(thInput,1);
-        // }
-        // console.log(thInput)
-        
+        var myEquation = new chemicalEquation();
+        myEquation.readTextToEquation(thInput);
 
-
-
-
-        myFormula.readTextToFormula(thInput,1);
+        var myHTMLEquation = myEquation.makeEquationHTML();
         var element = document.getElementById("theoutput");
-        element.appendChild(myFormula.makeFormulaHTML());
+        element.appendChild(myHTMLEquation);
+
+
+        // var myFormula = new chemicalFormula();
+        
+        // myFormula.readTextToFormula(thInput,1);
+        // var element = document.getElementById("theoutput");
+        // element.appendChild(myFormula.makeFormulaHTML());
 
     }
 }
