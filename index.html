@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 </head>
 <body>
     
@@ -16,74 +17,78 @@
         <input type="text" id="formula" value=" HClO4 + P4O10 -> H3PO4 + Cl2O7 ">
     </div>
 
+    <!-- Example of HTML equation -->
+<!--     <div class="equation">
+        <span class="formula">
+            <div class="elementWithNumber">
+                <span class="elementSymbol">H</span>
+                <span class="elementNumber">1</span>
+            </div>
+            <div class="elementWithNumber">
+                <span class="elementSymbol">Cl</span>
+                <span class="elementNumber">1</span>
+            </div>
+            <div class="elementWithNumber">
+                <span class="elementSymbol">O</span>
+                <span class="elementNumber">4</span>
+            </div>
+        </span>
 
+        <span class="plus">+</span>
 
-    <div id="theoutput">
+        <span class="formula">
+                <div class="elementWithNumber">
+                    <span class="elementSymbol">P</span>
+                    <span class="elementNumber">4</span>
+                </div>
+                <div class="elementWithNumber">
+                    <span class="elementSymbol">O</span>
+                    <span class="elementNumber">10</span>
+                </div>
+        </span>
 
-        <div class="equation">
-            <span class="formula">
+        <span class="arrow">
+                ->
+        </span>
+
+        <span class="formula">
                 <div class="elementWithNumber">
                     <span class="elementSymbol">H</span>
                     <span class="elementNumber">1</span>
                 </div>
                 <div class="elementWithNumber">
-                    <span class="elementSymbol">Cl</span>
+                    <span class="elementSymbol">P</span>
                     <span class="elementNumber">1</span>
                 </div>
                 <div class="elementWithNumber">
                     <span class="elementSymbol">O</span>
                     <span class="elementNumber">4</span>
                 </div>
-            </span>
+        </span>
 
-            <span class="plus">+</span>
+        <span class="plus">
+                +
+        </span>
 
-            <span class="formula">
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">P</span>
-                        <span class="elementNumber">4</span>
-                    </div>
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">O</span>
-                        <span class="elementNumber">10</span>
-                    </div>
-            </span>
+        <span class="formula">
+                <div class="elementWithNumber">
+                    <span class="elementSymbol">Cl</span>
+                    <span class="elementNumber">2</span>
+                </div>
+                <div class="elementWithNumber">
+                    <span class="elementSymbol">O</span>
+                    <span class="elementNumber">7</span>
+                </div>
+        </span>
+    </div> -->
 
-            <span class="arrow">
-                    ->
-            </span>
+    <p>
+        \[ \begin{matrix} a & b & c \\d & e & f \\ g & h & i \end{matrix} \]
+    </p>
 
-            <span class="formula">
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">H</span>
-                        <span class="elementNumber">1</span>
-                    </div>
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">P</span>
-                        <span class="elementNumber">1</span>
-                    </div>
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">O</span>
-                        <span class="elementNumber">4</span>
-                    </div>
-            </span>
+    <div id="theoutput">
 
-            <span class="plus">
-                    +
-            </span>
-
-            <span class="formula">
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">Cl</span>
-                        <span class="elementNumber">2</span>
-                    </div>
-                    <div class="elementWithNumber">
-                        <span class="elementSymbol">O</span>
-                        <span class="elementNumber">7</span>
-                    </div>
-            </span>
-        </div>
-
+        
     </div>
 
 
@@ -94,6 +99,7 @@
     <script src="hello.js"></script>
     <script src="chemicalFormula.js"></script>
     <script src="chemicalEquation.js"></script>
+    
 
 
 </body>
