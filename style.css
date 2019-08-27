@@ -1,24 +1,28 @@
-div{
+/* div{
     margin: 2.5px 0 2.5px 0;
-}
+} */
 
 .equation{
-    /* display: inline-block; */
+    display: inline-block;
     border: 5px lightslategray double;
+    margin: 5px auto;
 }
 
 .formula{
     margin: 10px;
     border: 1px dotted;
     display: inline-block;
+    /* float: left; */
 }
 
 .plus{
     display: inline-block;
+    /* float: left; */
 }
 
 .arrow{
     display: inline-block;
+    /* float: left; */
 }
 
 
