@@ -55,6 +55,8 @@ class chemicalEquation{
         }
     }
 
+    
+
     makeEquationHTML(){
         var myEquation = document.createElement("div");
         myEquation.setAttribute('class', 'equation');

@@ -80,4 +80,66 @@ class rowEchelon{
         this.jPivot = this.jPivot + 1;
     }
 
+    gCD(a,b){
+        if(b>a){
+            let temp = a;
+            a = b;
+            b = temp;
+        }
+        while(b>0){
+            let temp = b;
+            b = a%b;
+            a = temp;
+        }
+        return a
+    }
+
+    gCDBar(aBar){
+        let result = 1;
+        if(aBar.length>0){
+            result = aBar[0];
+        }
+        if(aBar.length>1){
+            for(let i = 1; i < aBar.length; i++){
+                result = this.gCD(result,aBar[i]);
+            }
+        }
+        return result;
+    }
+
+    simplifyRow(i){
+        let nonZeroElements = [];
+        for(let j = 0; j < this.nColumns; j++){
+            if(this.matrix[i][j]!=0){
+                if(this.matrix[i][j] < 0){
+                    nonZeroElements.push(this.matrix[i][j]*(-1));
+                }
+                else{
+                    nonZeroElements.push(this.matrix[i][j]);
+                }
+            }
+        }
+        let factor = this.gCDBar(nonZeroElements);
+        for(let j = 0; j < this.nColumns; j++){
+            if(this.matrix[i][j]!=0){
+                this.matrix[i][j]=this.matrix[i][j]/factor;
+            }
+        }
+    }
+
+    simplifyMat(){
+        for(let i = 0; i < this.nRows; i++){
+            let simplify = false;
+            for(let j = 0; j < this.nColumns; j++){
+                if(this.matrix[i][j] != 0){
+                    simplify = true;
+                }
+            }
+            if(simplify){
+                this.simplifyRow(i);
+            }
+        }
+
+    }
+
 }

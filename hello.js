@@ -19,9 +19,19 @@ function addPara(thInput) {
 
         while(myMatrix.findNextPivot()){
             myMatrix.pivotBlastAsh();
-            insertHTMLMatrix(myMatrix.showMatrix());
+            myMatrix.simplifyMat();
         }
 
+        myMatrix.simplifyRow(1);
+
+        insertHTMLParagraph("simplify second row");
+
+        insertHTMLMatrix(myMatrix.showMatrix())
+
+
+
+
+        
         // insertHTMLParagraph("before first pivot");
         // insertHTMLMatrix(myMatrix.showMatrix());
 
