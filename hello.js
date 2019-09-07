@@ -7,15 +7,20 @@ function addPara(thInput) {
 
         insertHTMLEquation(myEquation);
 
+        myEquation.generateMasterElementMap();
+        let aMatrix = myEquation.generateMatrix();
 
-        let aMatrix = [
-            [1,0,-3,0],
-            [1,0,0,-2],
-            [4,10,-4,-7],
-            [0,4,-1,0]
-        ];
+        
+
+        // let aMatrix = [
+        //     [1,0,-3,0],
+        //     [1,0,0,-2],
+        //     [4,10,-4,-7],
+        //     [0,4,-1,0]
+        // ];
 
         var myMatrix = new rowEchelon(aMatrix);
+        insertHTMLMatrix(myMatrix.showMatrix());
 
         while(myMatrix.findNextPivot()){
             myMatrix.pivotBlastAsh();
@@ -26,7 +31,7 @@ function addPara(thInput) {
 
         insertHTMLParagraph("simplify second row");
 
-        insertHTMLMatrix(myMatrix.showMatrix())
+        insertHTMLMatrix(myMatrix.showMatrix());
 
 
 

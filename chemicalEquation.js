@@ -56,6 +56,57 @@ class chemicalEquation{
     }
 
     
+    generateMasterElementMap(){
+
+        // counter for number of reactant/products formulas
+        let nReactants = this.reactantMap.size;
+        let nProducts = this.productMap.size;
+
+        for(let i = 0; i < nReactants; i++){
+            for (let sym of this.reactantMap.get(i).elementMap.keys()){
+                this.masterElementMap.addElement(sym,1);
+            }
+        }
+        for(let i = nReactants; i < (nReactants + nProducts); i++){
+            for (let sym of this.productMap.get(i).elementMap.keys()){
+                this.masterElementMap.addElement(sym,1);
+            }
+        }
+        
+    }
+
+    generateMatrix(){
+        //matrix to return
+        let aMat = [];
+
+        // counter for number of reactant/products formulas
+        let nReactants = this.reactantMap.size;
+        let nProducts = this.productMap.size;
+
+        for (let sym of this.masterElementMap.elementMap.keys()){
+            // temp row of matrix
+            let aBar = [];
+
+            for(let i = 0; i < nReactants; i++){
+                if(this.reactantMap.get(i).elementMap.get(sym) != null){
+                    aBar.push(this.reactantMap.get(i).elementMap.get(sym));
+                }
+                else{
+                    aBar.push(0);
+                }
+            }
+            for(let i = nReactants; i < (nReactants + nProducts); i++){
+                if(this.productMap.get(i).elementMap.get(sym) != null){
+                    aBar.push(this.productMap.get(i).elementMap.get(sym)*(-1));
+                }
+                else{
+                    aBar.push(0);
+                }
+            }
+            aMat.push(aBar);
+        }
+        return aMat;
+    }
 
     makeEquationHTML(){
         var myEquation = document.createElement("div");
