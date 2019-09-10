@@ -3,11 +3,48 @@ class chemicalFormula{
         this.elementMap = new Map();
         this.formulaCoef = 1;
         this.origFormula = "";
+        this.latexFormula = "";
     }
 
     showElementMap(){
         console.log(this.elementMap);
     }
+
+    makeLatexFormula(formula){
+        for(let i = 0; i < formula.length; i++){
+
+            if(isNum(formula[i])){
+                if( ((i-1) >= 0) && ( (isAlpha(formula[i-1])) || ( formula[i-1] == ")" ) || ( formula[i-1] == "]" ) )){
+                
+                    let numberString = "";
+
+                    while(i < formula.length && isNum(formula[i])){
+                        numberString = numberString + formula[i];
+                        i = i + 1;
+                    }
+
+                    // need to back up on the i
+                    i = i -1;
+                    
+                    this.latexFormula = this.latexFormula + "_{" + numberString + "}";
+
+            
+                }
+                else{
+                    this.latexFormula = this.latexFormula + formula[i];
+                }
+            }
+            else if(formula[i] == "."){
+                this.latexFormula = this.latexFormula + " \\cdot ";
+            }
+            else{
+                this.latexFormula = this.latexFormula + formula[i];
+            }
+        }
+
+
+    }
+
 
     makeFormulaHTML(){
 
@@ -132,8 +169,10 @@ class chemicalFormula{
     breakInnerOuter(formulaText, formulaSubscript){
         // formulaText = formulaText.replace("[","(");
         // formulaText = formulaText.replace("]",")");
+        
         let start = 0;
         let end = 0;
+        
         if((formulaText.indexOf("(") > 0) && (formulaText.indexOf("[") > 0)){
             if(formulaText.indexOf("(") < formulaText.indexOf("[")){
                 start = formulaText.indexOf("(");
@@ -152,8 +191,10 @@ class chemicalFormula{
             start = formulaText.indexOf("[");
             end = formulaText.lastIndexOf("]");
         }
+
         // let start = formulaText.indexOf("(");
         // let end = formulaText.lastIndexOf(")");
+        
         let beforeText = formulaText.substring(0,start);
         let loc = [];
         loc[0] = end + 1;

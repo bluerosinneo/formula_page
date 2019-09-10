@@ -31,7 +31,7 @@ function addPara(thInput) {
 
         var myMatrix = new rowEchelon(aMatrix);
         
-        insertHTMLMatrix(myMatrix.showMatrix());
+        insertHTMLLatex(myMatrix.showMatrix());
 
         while(myMatrix.findNextPivot()){
             myMatrix.pivotBlastAsh();
@@ -40,7 +40,7 @@ function addPara(thInput) {
 
         myMatrix.noLeadingNegative();
 
-        insertHTMLMatrix(myMatrix.showMatrix());
+        insertHTMLLatex(myMatrix.showMatrix());
 
         let aBar = [1,2,3];
         let bBar = [3,5,7];
@@ -51,10 +51,20 @@ function addPara(thInput) {
         console.log(myMatrix.partialSolution(6));
 
         console.log(myMatrix.homogeneousSolution());
+
+        let myString = "1)2";
+        console.log(myString.concat("h"));
+        console.log(myString);
+
+        // This is not ready
+        // let myLatexFormula = new chemicalFormula();
+        // myLatexFormula.makeLatexFormula("K4Fe(CN)6");
+        // insertHTMLLatex(myLatexFormula.latexFormula);
+
     }
 }
 
-function insertHTMLMatrix(matrix){
+function insertHTMLLatex(matrix){
     var element = document.getElementById("theoutput");
     element.appendChild(matrix);
     MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
