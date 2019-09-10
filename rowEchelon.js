@@ -116,11 +116,15 @@ class rowEchelon{
     lCMBar(aBar){
         let result = 1;
         if(aBar.length > 0){
-            result = aBar[0];
+            if(aBar[0] > 0){
+                result = aBar[0];
+            }
         }
         if(aBar.length > 1){
             for(let i = 1; i < aBar.length; i++){
-                result = this.lCM(result, aBar[i])
+                if(aBar[i] > 0){
+                    result = this.lCM(result, aBar[i]);
+                }
             }
         }
         return result;
@@ -178,19 +182,94 @@ class rowEchelon{
         }
     }
 
+    // function that tests each row of a matrix to see if it should be attempted
+    // to be simplified
+    // JS is ok with the let simplify = false; on each run of the outer loop
     simplifyMat(){
         for(let i = 0; i < this.nRows; i++){
+
             let simplify = false;
+
             for(let j = 0; j < this.nColumns; j++){
                 if(this.matrix[i][j] != 0){
                     simplify = true;
                 }
             }
+
             if(simplify){
                 this.simplifyRow(i);
             }
+
+        }
+    }
+
+    // create a partial solution to the homogeneous system of equations
+    // must already be in a reduced row form
+    // with leading non negative elements
+    partialSolution(jFreedom){
+        // create arays for numerator and denominator seperatly (defult is 0)
+        let numeratorBar = new Array(this.nColumns).fill(0);
+        let denominatorBar = new Array(this.nColumns).fill(0);
+
+        // make sure that the freedom index is set properly
+        numeratorBar[jFreedom] = 1;
+        denominatorBar[jFreedom] = 1;
+        
+        // scans each row to capter elements that would be apart of the
+        // partial solution
+        // the leading non-zero non-negative element will be the denominator
+        // leading before the freedom column
+        // then the numerator will be from jFreedom (should be negative)
+        for(let i = 0; i < this.nRows; i++){
+            for(let j = 0; j < this.nColumns; j++){
+                if((this.matrix[i][j] != 0) && j < jFreedom){
+                    denominatorBar[j] = this.matrix[i][j];
+                    numeratorBar[j] = this.matrix[i][jFreedom] * -1;
+                    break;
+                }
+            }
         }
 
+        // setting the freedom variable so we have all integers
+        let multiple = this.lCMBar(denominatorBar);
+
+        // create the final solution in the numberatorBar
+        for(let j = 0; j < this.nColumns; j++){
+            if(denominatorBar[j] != 0){
+                numeratorBar[j] = (numeratorBar[j]*multiple)/denominatorBar[j];
+            }
+        }
+
+        return numeratorBar;
+    }
+
+    homogeneousSolution(){
+        // list of bools for if is a freedom column
+        let degreeOfFreedomBoolArray = new Array(this.nColumns).fill(false);
+
+        for(let i = 0; i < this.nRows; i++){
+            // bool to see if we have found a leading non-zero non-negative
+            let foundLeading = false;
+            for(let j = 0; j < this.nColumns; j++){
+                if((foundLeading == true) && (this.matrix[i][j] != 0)){
+                    degreeOfFreedomBoolArray[j] = true;
+                }
+                if(this.matrix[i][j] > 0){
+                    foundLeading = true;
+                }
+            }
+        }
+
+        // the solution
+        let result = new Array(this.nColumns).fill(0);
+
+        for(let j = 0; j < this.nColumns; j++){
+            if(degreeOfFreedomBoolArray[j] == true){
+                this.addVectors(result,this.partialSolution(j));
+            }
+        }
+
+        return result;
     }
 
 }

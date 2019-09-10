@@ -8,9 +8,9 @@ function addPara(thInput) {
         insertHTMLEquation(myEquation);
 
         myEquation.generateMasterElementMap();
-        let aMatrix = myEquation.generateMatrix();
 
-        
+        // don't want to have to lets for aMatrix
+        //let aMatrix = myEquation.generateMatrix();
 
         // let aMatrix = [
         //     [1,0,-3,0],
@@ -19,7 +19,18 @@ function addPara(thInput) {
         //     [0,4,-1,0]
         // ];
 
+        // this aMatrix is overdiding the one 
+        // generated from the chemical equation
+        let aMatrix = [
+            [15,0,0,-2,0,0,-5],
+            [0,12,0,-3,0,0,-7],
+            [0,0,7,-1,0,0,-3],
+            [0,0,0,0,3,0,-4],
+            [0,0,0,0,0,5,-2]
+        ];
+
         var myMatrix = new rowEchelon(aMatrix);
+        
         insertHTMLMatrix(myMatrix.showMatrix());
 
         while(myMatrix.findNextPivot()){
@@ -36,6 +47,10 @@ function addPara(thInput) {
         myMatrix.addVectors(aBar,bBar);
         console.log(aBar);
 
+        console.log(myMatrix.partialSolution(3));
+        console.log(myMatrix.partialSolution(6));
+
+        console.log(myMatrix.homogeneousSolution());
     }
 }
 
