@@ -94,6 +94,8 @@ class rowEchelon{
         return a
     }
 
+
+
     gCDBar(aBar){
         let result = 1;
         if(aBar.length>0){
@@ -105,6 +107,33 @@ class rowEchelon{
             }
         }
         return result;
+    }
+
+    lCM(a,b){
+        return ((a*b)/this.gCD(a,b));
+    }
+
+    lCMBar(aBar){
+        let result = 1;
+        if(aBar.length > 0){
+            result = aBar[0];
+        }
+        if(aBar.length > 1){
+            for(let i = 1; i < aBar.length; i++){
+                result = this.lCM(result, aBar[i])
+            }
+        }
+        return result;
+    }
+
+    // note that this function sets the sum of the two vectores to the first
+    // ie aBar = aBar + bBar (under vectory adition defined)
+    addVectors(aBar, bBar){
+        if(aBar.length == bBar.length){
+            for(let i = 0; i < aBar.length; i++){
+                aBar[i] = aBar[i] + bBar[i];
+            }
+        }
     }
 
     simplifyRow(i){
@@ -123,6 +152,28 @@ class rowEchelon{
         for(let j = 0; j < this.nColumns; j++){
             if(this.matrix[i][j]!=0){
                 this.matrix[i][j]=this.matrix[i][j]/factor;
+            }
+        }
+    }
+
+    multiplyByRow(iRow, k){
+        if(iRow < this.nRows){
+            for(let j = 0; j < this.nColumns; j++){
+                this.matrix[iRow][j] = this.matrix[iRow][j] * k;
+            }
+        }
+    }
+
+    noLeadingNegative(){
+        for(let i = 0; i < this.nRows; i++){
+            let foundNegative = false;
+            for(let j = 0; j < this.nColumns; j++){
+                if(this.matrix[i][j] != 0){
+                    if(this.matrix[i][j] < 0){
+                        this.multiplyByRow(i,-1)
+                    }
+                    break;
+                }
             }
         }
     }

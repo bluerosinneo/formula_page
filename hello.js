@@ -27,45 +27,15 @@ function addPara(thInput) {
             myMatrix.simplifyMat();
         }
 
-        myMatrix.simplifyRow(1);
-
-        insertHTMLParagraph("simplify second row");
+        myMatrix.noLeadingNegative();
 
         insertHTMLMatrix(myMatrix.showMatrix());
 
+        let aBar = [1,2,3];
+        let bBar = [3,5,7];
+        myMatrix.addVectors(aBar,bBar);
+        console.log(aBar);
 
-
-
-        
-        // insertHTMLParagraph("before first pivot");
-        // insertHTMLMatrix(myMatrix.showMatrix());
-
-        // myMatrix.findNextPivot();
-        // myMatrix.pivotBlastAsh();
-
-        // insertHTMLParagraph("after first pivot");
-        // insertHTMLMatrix(myMatrix.showMatrix());
-
-        // myMatrix.findNextPivot();
-        // myMatrix.pivotBlastAsh();
-
-        // insertHTMLParagraph("after second pivot");
-        // insertHTMLMatrix(myMatrix.showMatrix());
-
-        // myMatrix.findNextPivot();
-        // myMatrix.pivotBlastAsh();
-
-        // insertHTMLParagraph("after third pivot");
-        // insertHTMLMatrix(myMatrix.showMatrix());
-        
-
-        // insertHTMLMatrix(myMatrix.showMatrix());
-        // insertHTMLParagraph("do row swap");
-        // myMatrix.swapRows(0,3);
-        // insertHTMLMatrix(myMatrix.showMatrix());
-        // myMatrix.findNextPivot();
-        // insertHTMLParagraph("do pivot");
-        // insertHTMLMatrix(myMatrix.showMatrix());
     }
 }
 
@@ -88,3 +58,4 @@ function insertHTMLParagraph(someString){
     var element = document.getElementById("theoutput");
     element.appendChild(parToInsert);
 }
+
