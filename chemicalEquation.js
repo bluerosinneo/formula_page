@@ -4,6 +4,32 @@ class chemicalEquation{
         this.productMap = new Map();
         this.masterElementMap = new chemicalFormula();
         this.origEquation = "";
+        this.latexEquation = "";
+    }
+
+    makeLatexEquation(){
+
+        let myLatexEquation = "";
+
+        let nReactants = this.reactantMap.size;
+        let nProducts = this.productMap.size;
+
+        // iterate over reactants
+        for(let i = 0; i < nReactants; i++){
+            this.reactantMap.get(i).makeLatexFormula();
+            myLatexEquation = myLatexEquation + this.reactantMap.get(i).latexFormula;
+            if(i != nReactants - 1){
+                myLatexEquation = myLatexEquation + " \\to ";
+            }
+        }
+
+        // iterate over products
+        for(let i = 0; i < nProducts; i++){
+            this.productMap.get(i).makeLatexFormula();
+            myLatexEquation = myLatexEquation + this.productMap.get(i).latexFormula;
+        }
+
+        this.latexEquation = myLatexEquation;
     }
 
     readTextToEquation(equationString){
@@ -40,6 +66,8 @@ class chemicalEquation{
         }
 
     }
+
+
 
 
     addFormula(reactantBool, formulaText, formulaCounter){

@@ -7,6 +7,9 @@ function addPara(thInput) {
 
         insertHTMLEquation(myEquation);
 
+        myEquation.makeLatexEquation();
+        console.log(myEquation.latexEquation);
+
         myEquation.generateMasterElementMap();
 
         // don't want to have to lets for aMatrix
@@ -56,10 +59,11 @@ function addPara(thInput) {
         console.log(myString.concat("h"));
         console.log(myString);
 
-        // This is not ready
-        // let myLatexFormula = new chemicalFormula();
-        // myLatexFormula.makeLatexFormula("K4Fe(CN)6");
-        // insertHTMLLatex(myLatexFormula.latexFormula);
+        //This is not ready
+        let myLatexFormula = new chemicalFormula();
+        myLatexFormula.readTextToFormula("Fe3[Fe(CN)6]2");
+        myLatexFormula.makeLatexFormula();
+        insertHTMLLatex(myLatexFormula.showLatexFormula());
 
     }
 }

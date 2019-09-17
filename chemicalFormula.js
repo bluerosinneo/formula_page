@@ -10,7 +10,9 @@ class chemicalFormula{
         console.log(this.elementMap);
     }
 
-    makeLatexFormula(formula){
+    makeLatexFormula(){
+        let formula = this.origFormula;
+
         for(let i = 0; i < formula.length; i++){
 
             if(isNum(formula[i])){
@@ -41,8 +43,26 @@ class chemicalFormula{
                 this.latexFormula = this.latexFormula + formula[i];
             }
         }
+    }
 
+    showLatexFormula(){
+        var htmlMatrix = document.createElement("p");
+        htmlMatrix.setAttribute('class', 'matrix');
 
+        let formulaString = "";
+
+        formulaString = formulaString + " \\[ ";
+
+        formulaString = formulaString + this.latexFormula;
+
+        formulaString = formulaString + " \\] ";
+
+        var textNode = document.createTextNode(formulaString);
+        htmlMatrix.appendChild(textNode);
+
+        //console.log(formulaString);
+
+        return htmlMatrix;
     }
 
 
