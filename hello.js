@@ -7,13 +7,14 @@ function addPara(thInput) {
 
         insertHTMLEquation(myEquation);
 
-        myEquation.makeLatexEquation();
-        console.log(myEquation.latexEquation);
+
 
         myEquation.generateMasterElementMap();
 
-        // don't want to have to lets for aMatrix
-        //let aMatrix = myEquation.generateMatrix();
+
+
+        //don't want to have to lets for aMatrix
+        let aMatrix = myEquation.generateMatrix();
 
         // let aMatrix = [
         //     [1,0,-3,0],
@@ -24,13 +25,13 @@ function addPara(thInput) {
 
         // this aMatrix is overdiding the one 
         // generated from the chemical equation
-        let aMatrix = [
-            [15,0,0,-2,0,0,-5],
-            [0,12,0,-3,0,0,-7],
-            [0,0,7,-1,0,0,-3],
-            [0,0,0,0,3,0,-4],
-            [0,0,0,0,0,5,-2]
-        ];
+        // let aMatrix = [
+        //     [15,0,0,-2,0,0,-5],
+        //     [0,12,0,-3,0,0,-7],
+        //     [0,0,7,-1,0,0,-3],
+        //     [0,0,0,0,3,0,-4],
+        //     [0,0,0,0,0,5,-2]
+        // ];
 
         var myMatrix = new rowEchelon(aMatrix);
         
@@ -45,6 +46,8 @@ function addPara(thInput) {
 
         insertHTMLLatex(myMatrix.showMatrix());
 
+
+
         let aBar = [1,2,3];
         let bBar = [3,5,7];
         myMatrix.addVectors(aBar,bBar);
@@ -53,17 +56,30 @@ function addPara(thInput) {
         console.log(myMatrix.partialSolution(3));
         console.log(myMatrix.partialSolution(6));
 
-        console.log(myMatrix.homogeneousSolution());
+        let solution = myMatrix.homogeneousSolution()
 
-        let myString = "1)2";
-        console.log(myString.concat("h"));
-        console.log(myString);
+        console.log(solution);
 
-        //This is not ready
-        let myLatexFormula = new chemicalFormula();
-        myLatexFormula.readTextToFormula("Fe3[Fe(CN)6]2");
-        myLatexFormula.makeLatexFormula();
-        insertHTMLLatex(myLatexFormula.showLatexFormula());
+        console.log(myMatrix.testSolution(solution));
+
+        let factor = myMatrix.gCDBar(solution);
+        for(let i = 0; i < solution.length; i++){
+            if(solution[i]!=0){
+                solution[i]=solution[i]/factor;
+            }
+        }
+
+        console.log(solution);
+
+        console.log(myMatrix.testSolution(solution));
+
+        myEquation.setCoef(solution);
+
+        myEquation.makeLatexEquation();
+
+        insertHTMLLatex(myEquation.showLatexEquation());
+
+
 
     }
 }

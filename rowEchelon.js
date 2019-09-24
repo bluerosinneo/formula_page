@@ -272,4 +272,16 @@ class rowEchelon{
         return result;
     }
 
+    testSolution(solutionBar){
+        let result = []
+        for(let i = 0; i < this.nRows; i++){
+            let innerResult = 0;
+            for(let j = 0; j < this.nColumns; j++){
+                innerResult = innerResult + solutionBar[j]*this.matrix[i][j];
+            }
+            result.push(innerResult);
+        }
+        return result;
+    }
+
 }

@@ -46,8 +46,8 @@ class chemicalFormula{
     }
 
     showLatexFormula(){
-        var htmlMatrix = document.createElement("p");
-        htmlMatrix.setAttribute('class', 'matrix');
+        var htmlLatex = document.createElement("p");
+        htmlLatex.setAttribute('class', 'matrix');
 
         let formulaString = "";
 
@@ -58,11 +58,11 @@ class chemicalFormula{
         formulaString = formulaString + " \\] ";
 
         var textNode = document.createTextNode(formulaString);
-        htmlMatrix.appendChild(textNode);
+        htmlLatex.appendChild(textNode);
 
         //console.log(formulaString);
 
-        return htmlMatrix;
+        return htmlLatex;
     }
 
 

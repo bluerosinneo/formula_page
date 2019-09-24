@@ -14,23 +14,45 @@ class chemicalEquation{
         let nReactants = this.reactantMap.size;
         let nProducts = this.productMap.size;
 
+        myLatexEquation = myLatexEquation + " \\[ ";
+
         // iterate over reactants
         for(let i = 0; i < nReactants; i++){
             this.reactantMap.get(i).makeLatexFormula();
-            myLatexEquation = myLatexEquation + this.reactantMap.get(i).latexFormula;
+            myLatexEquation = myLatexEquation + this.reactantMap.get(i).formulaCoef + this.reactantMap.get(i).latexFormula;
             if(i != nReactants - 1){
-                myLatexEquation = myLatexEquation + " \\to ";
+                myLatexEquation = myLatexEquation + "+";
             }
         }
 
+        myLatexEquation = myLatexEquation + " \\to ";
+
         // iterate over products
-        for(let i = 0; i < nProducts; i++){
+        for(let i = nReactants; i < nReactants + nProducts; i++){
             this.productMap.get(i).makeLatexFormula();
-            myLatexEquation = myLatexEquation + this.productMap.get(i).latexFormula;
+            myLatexEquation = myLatexEquation + this.productMap.get(i).formulaCoef + this.productMap.get(i).latexFormula;
+            if(i != nReactants + nProducts - 1){
+                myLatexEquation = myLatexEquation + "+";
+            }
         }
+
+        myLatexEquation = myLatexEquation + " \\] ";
 
         this.latexEquation = myLatexEquation;
     }
+
+    showLatexEquation(){
+        var htmlLatex = document.createElement("p");
+        htmlLatex.setAttribute('class', 'matrix');
+
+
+        var textNode = document.createTextNode(this.latexEquation);
+        htmlLatex.appendChild(textNode);
+
+
+        return htmlLatex;
+    }
+
 
     readTextToEquation(equationString){
         let endReactants = equationString.indexOf("-");
@@ -134,6 +156,19 @@ class chemicalEquation{
             aMat.push(aBar);
         }
         return aMat;
+    }
+
+    setCoef(solution){
+        let nReactants = this.reactantMap.size;
+        let nProducts = this.productMap.size;
+
+
+        for(let i = 0; i < nReactants; i++){
+            this.reactantMap.get(i).formulaCoef = solution[i];
+        }
+        for(let i = nReactants; i < (nReactants + nProducts); i++){
+            this.productMap.get(i).formulaCoef = solution[i];
+        }
     }
 
     makeEquationHTML(){
